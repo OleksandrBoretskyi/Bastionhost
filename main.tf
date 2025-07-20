@@ -47,16 +47,16 @@ resource "aws_security_group" "bastion_sg" {
   vpc_id = aws_vpc.main.id
 
   ingress {
-    from_port  = 22
-    to_port    = 22
-    protocol   = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port  = 0
-    to_port    = 0
-    protocol   = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -73,9 +73,9 @@ resource "aws_security_group" "target_sg" {
   }
 
   egress {
-    from_port  = 0
-    to_port    = 0
-    protocol   = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -89,11 +89,12 @@ resource "aws_key_pair" "bastion_key" {
 }
 
 resource "aws_instance" "bastion_host" {
-  ami             = "ami-0d8d11821a1c1678b"
-  instance_type   = "t2.micro"
-  subnet_id       = aws_subnet.public.id
-  security_groups = [aws_security_group.bastion_sg.id]
-  key_name        = aws_key_pair.bastion_key.key_name
+  ami                         = "ami-0d8d11821a1c1678b"
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.public.id
+  associate_public_ip_address = true
+  security_groups             = [aws_security_group.bastion_sg.id]
+  key_name                    = aws_key_pair.bastion_key.key_name
 }
 
 resource "aws_instance" "target_host" {
