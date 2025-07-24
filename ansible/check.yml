@@ -1,0 +1,29 @@
+---
+- name: Check system status of target host
+  hosts: target
+  gather_facts: yes
+
+  tasks:
+    - name: Show uptime
+      ansible.builtin.shell: uptime
+      register: uptime_result
+
+    - name: Print uptime
+      ansible.builtin.debug:
+        var: uptime_result.stdout
+
+    - name: Check disk usage
+      ansible.builtin.shell: df -h /
+      register: disk_result
+
+    - name: Print disk usage
+      ansible.builtin.debug:
+        var: disk_result.stdout
+
+    - name: Show CPU Load
+      ansible.builtin.shell: cat /proc/loadavg
+      register: cpu_result
+
+    - name: Print CPU Load
+      ansible.builtin.debug:
+        var: cpu_result.stdout
