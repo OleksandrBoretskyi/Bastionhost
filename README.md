@@ -90,3 +90,22 @@ Now you can connect to the private instance with:
 ```bash
 ssh target
 ```
+
+## Ansible Monitoring
+
+To verify the health and system status of the target EC2 instance, you can use the included Ansible playbook
+
+Add addresses for bastion host and target in `inventory.ini`
+
+Navigate to the `ansible/` directory and run:
+
+```bash
+ansible-playbook check.yml
+```
+This playbook will:
+
+    Retrieve the uptime of the target instance
+
+    Show disk usage on the root partition
+
+    Display the current CPU load average
