@@ -9,7 +9,7 @@ resource "aws_cloudwatch_metric_alarm" "ec2_status_check_alarm" {
   threshold           = 0
   alarm_description   = "This metric monitors ec2 cpu utilization"
   dimensions = {
-    InstanceId = aws_instance.bastion.id
+    InstanceId = aws_instance.target_host.id
   }
   alarm_actions = [aws_sns_topic.alarm_topic.arn]
   ok_actions    = [aws_sns_topic.alarm_topic.arn]
